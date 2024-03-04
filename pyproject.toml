@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "transfer-file"
+version = "0.1.0"
+description = ""
+authors = ["Jean Carraro <jgcarraro@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+paramiko = "^3.4.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
