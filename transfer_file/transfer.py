@@ -1,25 +1,11 @@
 from io import StringIO
-import sys
-import transfer_file
-import paramiko
 import os
 import subprocess
-from routes import routes, Server
+import sys
 
+import paramiko
 
-def getPathToServer(serverName: str) -> list[Server]:
-    targetServer = routes.get(serverName)
-    if targetServer is None:
-        print(f"Server with name {serverName} not found")
-        exit(1)
-
-    previousName = targetServer.previous
-
-    if previousName == ".":
-        return [targetServer]
-
-    path = getPathToServer(previousName)
-    return [*path, targetServer]
+from transfer_file import Server, getPathToServer
 
 
 def transferFile(file: str, path: list[Server]):
@@ -73,9 +59,14 @@ def transferFile(file: str, path: list[Server]):
             target.exec_command("mkdir -p ~/transfered_files")
             sftp = target.open_sftp()
             sftp.put(basename, f"transfered_files/{basename}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        exit(1)
 
     finally:
         target.close()
+
+    print(f"File {file} transferred to {path[-1].name} successfully")
 
 
 def main():
@@ -85,8 +76,7 @@ def main():
 
     file = sys.argv[1]
     destination = sys.argv[2]
-    path = transfer_file.getPathToServer(destination)
-    print([server.name for server in path])
+    path = getPathToServer(destination)
     transferFile(file, path)
 
 

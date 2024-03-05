@@ -32,3 +32,18 @@ routes = {
         name="cbe2", previous="jump_cbc", user="jgcarraro", ip="172.19.161.2"
     ),
 }
+
+
+def getPathToServer(serverName: str) -> list[Server]:
+    targetServer = routes.get(serverName)
+    if targetServer is None:
+        print(f"Server with name {serverName} not found")
+        exit(1)
+
+    previousName = targetServer.previous
+
+    if previousName == ".":
+        return [targetServer]
+
+    path = getPathToServer(previousName)
+    return [*path, targetServer]

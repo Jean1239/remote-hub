@@ -12,3 +12,7 @@ paramiko = "^3.4.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+transfer = "transfer_file.transfer:main"
+ssh_to_server = "transfer_file.ssh_to_server:main"
