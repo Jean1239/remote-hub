@@ -1,0 +1,13 @@
+# Exemplos de como adicionar novas rotas:
+
+# Para adicionar uma nova rota, siga o exemplo abaixo e preencha os campos necessários:
+#
+# Exemplo de adição de rota:
+#   nome_da_rota:
+#     name: nome_da_rota
+#     previous: rota_anterior
+#     user: nome_do_usuario
+#     ip: endereco_ip
+#     port: porta (opcional)
+
+# caso a rota anterior seja a máquina local, preencha o campo previous com um ponto (.)
