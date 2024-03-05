@@ -9,5 +9,18 @@
 #     user: nome_do_usuario
 #     ip: endereco_ip
 #     port: porta (opcional)
+#     pkey_file: path_to_private_key (opcional)
 
 # caso a rota anterior seja a máquina local, preencha o campo previous com um ponto (.)
+
+A:
+  name: A
+  previous: .
+  user: user
+  ip: XXX.XXX.XXX.XXX
+
+B:
+  name: B
+  previous: A
+  user: user
+  ip: XXX.XXX.XXX.XXX

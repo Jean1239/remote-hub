@@ -1,4 +1,6 @@
+import sys
 from sys import exit
+import os
 import yaml
 
 
@@ -20,10 +22,16 @@ class Server:
         self.pkey_file = f"/home/{user}/.ssh/{pkey_file}"
 
 
-def readRoutesFile():
+def readRoutesFile() -> dict[str, Server]:
+    pathScript = sys.argv[0]
+
+    # Obter o caminho para a pasta original
+    base_path = os.path.abspath(os.path.dirname(pathScript))
+
     try:
         routes: dict[str, Server] = {}
-        with open("routes.yaml", "r") as file:
+        routesPath = os.path.join(base_path, "routes.yaml")
+        with open(routesPath, "r") as file:
             data = yaml.load(file, Loader=yaml.FullLoader)
             for key, value in data.items():
                 routes[key] = Server(**value)
