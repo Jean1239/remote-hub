@@ -2,6 +2,7 @@ from io import StringIO
 import os
 import subprocess
 import sys
+from sys import exit
 
 import paramiko
 

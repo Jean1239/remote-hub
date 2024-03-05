@@ -1,5 +1,6 @@
 import sys
 import subprocess
+from sys import exit
 
 from transfer_file import getPathToServer
 
