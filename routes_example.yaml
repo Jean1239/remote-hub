@@ -13,14 +13,14 @@
 
 # caso a rota anterior seja a máquina local, preencha o campo previous com um ponto (.)
 
-A:
-  name: A
-  previous: .
-  user: user
-  ip: XXX.XXX.XXX.XXX
+# A:
+#   name: A
+#   previous: .
+#   user: user
+#   ip: XXX.XXX.XXX.XXX
 
-B:
-  name: B
-  previous: A
-  user: user
-  ip: XXX.XXX.XXX.XXX
+# B:
+#   name: B
+#   previous: A
+#   user: user
+#   ip: XXX.XXX.XXX.XXX
