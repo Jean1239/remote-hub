@@ -25,7 +25,6 @@ def readRoutesFile() -> dict[str, Server]:
     home_dir = Path.home()
     config_dir = f"{home_dir}/.config/transfer_file"
     routesFilePath = f"{config_dir}/routes.yaml"
-    print(routesFilePath)
 
     try:
         routes: dict[str, Server] = {}
