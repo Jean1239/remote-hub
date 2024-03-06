@@ -1,7 +1,6 @@
+from pathlib import Path
 from sys import exit
 import yaml
-from importlib import resources
-from . import data_files
 
 
 class Server:
@@ -23,11 +22,14 @@ class Server:
 
 
 def readRoutesFile() -> dict[str, Server]:
-    routesFile = resources.files(data_files) / "routes.yaml"
+    home_dir = Path.home()
+    config_dir = f"{home_dir}/.config/transfer_file"
+    routesFilePath = f"{config_dir}/routes.yaml"
+    print(routesFilePath)
 
     try:
         routes: dict[str, Server] = {}
-        with routesFile.open("r") as file:
+        with open(routesFilePath, "r") as file:
             data = yaml.load(file, Loader=yaml.FullLoader)
             for key, value in data.items():
                 routes[key] = Server(**value)
