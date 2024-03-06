@@ -1,10 +1,10 @@
 from io import StringIO
 import os
-import subprocess
 import sys
 from sys import exit
 
 import paramiko
+import scp
 
 from transfer_file import Server, getPathToServer
 
@@ -18,23 +18,21 @@ def transferFile(file: str, path: list[Server]):
         print("Path cannot be empty")
         exit(1)
 
-    if len(path) == 1:
-        subprocess.run(
-            ["scp", "-P", str(path[0].port), file, f"{path[0].ip}:~"], check=True
-        )
-        return
-
-    basename = os.path.basename(file)
-
     try:
         target = paramiko.SSHClient()
         target.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        target.connect(path[0].ip, port=path[0].port)
-        target.exec_command("mkdir -p ~/transfered_files")
-        sftp = target.open_sftp()
-        sftp.put(file, f"transfered_files/{basename}")
+        target.connect(
+            hostname=path[0].ip,
+            port=path[0].port,
+            username=path[0].user,
+        )
 
-        for i in range(1, len(path)):
+    except Exception as e:
+        print(f"An error occurred in server {path[0].name}: {e}")
+        exit(1)
+
+    for i in range(1, len(path)):
+        try:
             transport = target.get_transport()
             if transport is None:
                 print(f"Failed to connect to {path[i].name}")
@@ -52,20 +50,29 @@ def transferFile(file: str, path: list[Server]):
             target = paramiko.SSHClient()
             target.set_missing_host_key_policy(paramiko.AutoAddPolicy())
             target.connect(
-                path[i].ip,
+                hostname=path[i].ip,
                 port=path[i].port,
+                username=path[i].user,
                 pkey=pkey,
                 sock=channel,
             )
-            target.exec_command("mkdir -p ~/transfered_files")
-            sftp = target.open_sftp()
-            sftp.put(basename, f"transfered_files/{basename}")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+
+        except Exception as e:
+            print(f"An error occurred in server {path[i].name}: {e}")
+            exit(1)
+
+    target.exec_command("mkdir -p ~/transfered_files")
+    transport = target.get_transport()
+    if transport is None:
+        print(f"Failed to connect to {path[0].name}")
         exit(1)
 
-    finally:
-        target.close()
+    scpClient = scp.SCPClient(transport)
+    scpClient.put(
+        file,
+        "transfered_files",
+        recursive=True,
+    )
 
     print(f"File {file} transferred to {path[-1].name} successfully")
 
