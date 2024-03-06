@@ -1,7 +1,7 @@
-import sys
 from sys import exit
-import os
 import yaml
+from importlib import resources
+from . import data_files
 
 
 class Server:
@@ -23,19 +23,16 @@ class Server:
 
 
 def readRoutesFile() -> dict[str, Server]:
-    pathScript = sys.argv[0]
-
-    # Obter o caminho para a pasta original
-    base_path = os.path.abspath(os.path.dirname(pathScript))
+    routesFile = resources.files(data_files) / "routes.yaml"
 
     try:
         routes: dict[str, Server] = {}
-        routesPath = os.path.join(base_path, "routes.yaml")
-        with open(routesPath, "r") as file:
+        with routesFile.open("r") as file:
             data = yaml.load(file, Loader=yaml.FullLoader)
             for key, value in data.items():
                 routes[key] = Server(**value)
         return routes
+
     except FileNotFoundError:
         print("File routes.yaml not found")
         exit(1)

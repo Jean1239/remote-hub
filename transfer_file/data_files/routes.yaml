@@ -1,0 +1,50 @@
+# Exemplos de como adicionar novas rotas:
+
+# Para adicionar uma nova rota, siga o exemplo abaixo e preencha os campos necessários:
+#
+# Exemplo de adição de rota:
+#   nome_da_rota:
+#     name: nome_da_rota
+#     previous: rota_anterior
+#     user: nome_do_usuario
+#     ip: endereco_ip
+#     port: porta (opcional)
+
+# caso a rota anterior seja a máquina local, preencha o campo previous com um ponto (.)
+
+vm:
+    name: vm
+    previous: .
+    user: jgcarraro
+    ip: 172.17.4.136
+
+jump_sp:
+    name: jump_sp
+    previous: vm
+    user: jgcarraro
+    ip: 172.19.0.253
+    port: 333
+
+pr35:
+    name: pr35
+    previous: jump_sp
+    user: jgcarraro
+    ip: 172.30.0.35
+
+jump_cbc:
+    name: jump_cbc
+    previous: vm
+    user: jgcarraro
+    ip: 172.19.253.249
+
+cbe1:
+    name: cbe1
+    previous: jump_cbc
+    user: jgcarraro
+    ip: 172.17.161.2
+
+cbe2:
+    name: cbe2
+    previous: jump_cbc
+    user: jgcarraro
+    ip: 172.19.161.2
