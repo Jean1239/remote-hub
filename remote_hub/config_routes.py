@@ -35,6 +35,8 @@ def configRoutes():
 
 
 def saveRoutes():
+    if not os.path.exists(ROUTES_FILE_PATH):
+        os.makedirs(os.path.dirname(ROUTES_FILE_PATH), exist_ok=True)
     with open(ROUTES_FILE_PATH, "w") as file:
         routesDict = {key: value.__dict__ for key, value in routes.items()}
         yaml.dump(routesDict, file)
