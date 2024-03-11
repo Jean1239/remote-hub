@@ -6,7 +6,7 @@ from sys import exit
 import paramiko
 import scp
 
-from transfer_file import Server, getPathToServer
+from . import Server, getPathToServer
 
 
 def transferFile(file: str, path: list[Server]):

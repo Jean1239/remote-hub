@@ -17,6 +17,6 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-transfer = "transfer_file.transfer:main"
-ssh_to_server = "transfer_file.ssh_to_server:main"
-config_routes = "transfer_file.config_routes:main"
+transfer = "remote_hub.transfer:main"
+ssh_to_server = "remote_hub.ssh_to_server:main"
+config_routes = "remote_hub.config_routes:main"
