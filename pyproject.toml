@@ -9,6 +9,7 @@ python = ">=3.10"
 paramiko = "^3.4.0"
 pyyaml = "^6.0.1"
 scp = "^0.14.5"
+questionary = "^2.0.1"
 
 
 [build-system]
@@ -18,3 +19,4 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 transfer = "transfer_file.transfer:main"
 ssh_to_server = "transfer_file.ssh_to_server:main"
+config_routes = "transfer_file.config_routes:main"

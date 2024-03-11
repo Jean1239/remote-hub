@@ -67,12 +67,16 @@ def transferFile(file: str, path: list[Server]):
         print(f"Failed to connect to {path[0].name}")
         exit(1)
 
-    scpClient = scp.SCPClient(transport)
-    scpClient.put(
-        file,
-        "transfered_files",
-        recursive=True,
-    )
+    try:
+        scpClient = scp.SCPClient(transport)
+        scpClient.put(
+            file,
+            "transfered_files",
+            recursive=True,
+        )
+    except Exception as e:
+        print(f"An error occurred in server {path[-1].name}: {e}")
+        exit(1)
 
     print(f"File {file} transferred to {path[-1].name} successfully")
 
