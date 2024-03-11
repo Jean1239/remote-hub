@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "transfer-file"
-version = "0.1.0"
+name = "remote-hub"
+version = "0.2.0"
 description = ""
 authors = ["Jean Carraro <jgcarraro@gmail.com>"]
 
