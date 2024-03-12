@@ -58,8 +58,9 @@ def addRoute():
     ).ask()
     ip = questionary.text("Endereço IP ou Hostname:", validate=validateText).ask()
     port = questionary.text("Porta:", default="22", validate=validateText).ask()
-    pkey_file = questionary.path(
-        "Caminho para a chave privada", validate=validateText, default="~/.ssh/id_rsa"
+    pkey_file = questionary.text(
+        "Caminho para a chave privada (expansão '~' não suportada)",
+        validate=validateText,
     ).ask()
     routeDict = {
         "name": name,
